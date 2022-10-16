@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -42,7 +42,9 @@
           <div class="overview">
             <h1 id="city"></h1>
             <ul>
-              <li>Memphis<span id="date"></span></li>
+              <li>Last updated on <span id="date"> </span></li>
+              <li>Memphis<span id="city"></span></li>
+              <li id="date"></li>
               <li id="description"></li>
             </ul>
           </div>

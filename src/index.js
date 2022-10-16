@@ -1,11 +1,29 @@
+function formateDate(timestamp) {
+  let date = new date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  return `${day} ${hours}:${minutes}`;
+}
+
 function getForecast(coordinates) {
+  console.log(response.data);
   let apiKey = "c563b906050778a90869f572a5baf264";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Memphis&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayTemperature);
 }
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
-  //let cityElement = documenent.querySelector("#city");
+  let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
@@ -15,7 +33,7 @@ function displayTemperature(response) {
   farenheitTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
-  //cityElement.innerHTML = response.data.name;
+  cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
