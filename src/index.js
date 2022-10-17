@@ -35,7 +35,7 @@ function displayTemperature(response) {
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon");
 
-  farenheitTemperature = response.data.main.temp;
+  fahrenheitTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
@@ -62,7 +62,26 @@ function logSubmit(event) {
   search(cityInputElement.value);
 }
 
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let FahrenheitTemperature = (celsiusElement.innerHTML * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(farenheitTemperature);
+}
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = celsiusTemperature;
+}
+let celsiusTemperature = null;
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", logSubmit);
+
+let fahrenheitlink = document.querySelector("fahrenheit-link");
+fahrenheitlink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Memphis");
