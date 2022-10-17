@@ -1,5 +1,5 @@
-function formateDate(timestamp) {
-  let date = new date(timestamp);
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
   let hours = date.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -22,7 +22,6 @@ function formateDate(timestamp) {
 }
 
 function getForecast(coordinates) {
-  console.log(response.data);
   let apiKey = "c563b906050778a90869f572a5baf264";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayTemperature);
