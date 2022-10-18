@@ -35,7 +35,7 @@ function displayTemperature(response) {
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon");
 
-  fahrenheitTemperature = response.data.main.temp;
+  displayFahrenheitTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
@@ -65,11 +65,15 @@ function logSubmit(event) {
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
+  celsiusLink.classList.remove("active");
+  fahrenheitlink.classList.add("active");
   let FahrenheitTemperature = (celsiusElement.innerHTML * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(farenheitTemperature);
+  temperatureElement.innerHTML = Math.round(FahrenheitTemperature);
 }
 function displayCelsiusTemperature(event) {
   event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitlink.classList.remove("active");
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = celsiusTemperature;
 }
