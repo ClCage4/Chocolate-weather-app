@@ -36,6 +36,7 @@ function displayTemperature(response) {
   let iconElement = document.querySelector("#icon");
 
   displayFahrenheitTemperature = response.data.main.temp;
+  displayCelsiusTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
