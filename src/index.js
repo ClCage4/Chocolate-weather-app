@@ -23,34 +23,38 @@ function formatDate(timestamp) {
 
 function displayForecast() {
   let forecastElement = document.querySelector("#forecast");
+  let days = ["thur", "Fri", "Sat", "Sun"];
 
-  let forecastHTML = `div class="row">`;
-  let days =["thur", "Fri","Sat","Sun"];
-  forecast.forEach(function(Day,index){
-    if (index < 6){
-      forecastHTML =
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (Day) {
+    forecastHTML =
       forecastHTML +
-      ` <div class="row">
-              <div class="col-2">
-                <div class="weather-forecast-date">${day}</div>
+      `
+          <div class="col-2">
+            <div class="weather-forecast-date">${day}</div>
                 <img
                   src="http://openweathermap.org/img/wn/50d@2x.png"
                   alt=""
                   width="42"
                 />
                 <div class="weather-forecast-temperature">
-                  <span class="weather-forecast-temperature-max">18°</span>
-                  <span class="weather-forecast-temperature-min">12°</span>
+                  <span class="weather-forecast-temperature-max"> 18° </span>
+                  <span class="weather-forecast-temperature-min"> 12° </span>
                 </div>
-              </div>
             </div>
-            `;
+          </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 
-forecastHTML = forecastHTML + `</div>`;
-forecastElement.innerHTML = forecastHTML;
+  function getForecast(coordinates) {
+    let apiKey = "c563b906050778a90869f572a5baf264";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units&imperial`;
+    axios.get(apiUrl).then(displayForecast);
+  }
 }
-
-forecastElement.innerHTML = function displayTemperature(response) {
+//forecastElement.innerHTML = function displayTemperature(response) {
+function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
@@ -61,11 +65,11 @@ forecastElement.innerHTML = function displayTemperature(response) {
 
   celsiusTemperature = response.data.main.temp;
 
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
-  windElement.innerHTML = response.data.wind.speed;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
   iconElement.setAttribute(
     "src",
@@ -73,8 +77,8 @@ forecastElement.innerHTML = function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
-  //getForecast(response.data.coord);
-};
+  getForecast(response.data.coord);
+}
 function search(city) {
   let apiKey = "c563b906050778a90869f572a5baf264";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
@@ -119,4 +123,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Memphis");
-displayForecast();
