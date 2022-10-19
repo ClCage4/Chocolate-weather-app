@@ -22,15 +22,18 @@ function formatDate(timestamp) {
 }
 
 function displayForecast(response) {
-  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["thur", "Fri", "Sat", "Sun"];
+  let forecast = response.data.daily;
 
+  let days = ["thur", "Fri", "Sat", "Sun"];
   let forecastHTML = `<div class="row">`;
+  days.forEach(Function(days));
+  forecastHTML =
+    forecastHTML +
+    //let forecastHTML =
+    `<div class="row">`;
   forecast.forEach(function (forecastDay) {
-    forecastHTML =
-      forecastHTML +
-      `
+    `
           <div class="col-2">
             <div class="weather-forecast-date">${formatDate(
               forecastDay.time
