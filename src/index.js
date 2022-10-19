@@ -46,13 +46,13 @@ function displayForecast() {
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-
-  function getForecast(coordinates) {
-    let apiKey = "c563b906050778a90869f572a5baf264";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units&imperial`;
-    axios.get(apiUrl).then(displayForecast);
-  }
 }
+function getForecast(coordinates) {
+  let apiKey = "c563b906050778a90869f572a5baf264";
+  let apiUrl = `https://api.shecodes.io/v1/weather/forecast?query=${city}&key=629340f426964bddabao29a02d5038tc&units=imperial`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 //forecastElement.innerHTML = function displayTemperature(response) {
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
@@ -93,12 +93,6 @@ function logSubmit(event) {
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
-
-  function displayCelsiusTemperature(event) {
-    event.preventDefault();
-    let temperatureElement = document.querySelector("temperature");
-  }
-
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
