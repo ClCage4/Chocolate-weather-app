@@ -20,17 +20,24 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
+function formateDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["thur", "Fri", "Sat", "Sun"];
+
+  return days[day];
+}
 
 function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["thur", "Fri", "Sat", "Sun"];
 
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay) {
-    forecastHTML =
-      forecastHTML +
-      `
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
           <div class="col-2">
             <div class="weather-forecast-date">${formatDate(
               forecastDay.dt
@@ -50,17 +57,22 @@ function displayForecast(response) {
                     forecastDay.temp.min
                   )} </span>
                 </div>
-          
           </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-function getForecast(city) {
-  let apiKey = "fbef01f4et1b02o0d25c27210a43ef3f";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+function getForecast(coordinates) {
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
+// function getForecast(city) {
+//   let apiKey = "fbef01f4et1b02o0d25c27210a43ef3f";
+//   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+//   axios.get(apiUrl).then(displayForecast);
+// }
 
 //forecastElement.innerHTML = function displayTemperature(response) {
 function displayTemperature(response) {
@@ -86,7 +98,7 @@ function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
-  getForecast(response.data.name);
+  getForecast(response.data.coord);
 }
 function search(city) {
   let apiKey = "c563b906050778a90869f572a5baf264";
